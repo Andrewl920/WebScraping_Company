@@ -9,7 +9,7 @@ driver.get("https://www.yellowpages.com.au/search/listings?clue=air+conditioning
 html = driver.page_source
 soup = BeautifulSoup(html, 'html.parser')
 
-numbers = len(soup.find_all("h3"))
+numbers = len(soup.find_all("h3")) - 1
 
 for company in range(numbers):
     Company_info = {}
@@ -24,7 +24,14 @@ for company in range(numbers):
     seperate_element = box_element.get_text(strip=True).split(",")
     first = seperate_element[1].lstrip()
     second = seperate_element[2].split("(")[0].split()[0] # get the state name
-    second_half = seperate_element[2].split("(")[0] .split()[1][:4] # get the post code
+    # check if the post code in other location
+    if any(char.isdigit() for char in seperate_element[2]):
+        second_half = seperate_element[2].split("(")[0].split()[1][:4]
+    else:
+        second_half = seperate_element[3].split("(")[1].split()[1][:4]
+
+
+    # get the post code
     address = first + " " + second + " " + second_half
 
     Company_info["name"] = name_element.get_text(strip=True)
@@ -36,9 +43,8 @@ for company in range(numbers):
     
 
 
-for i in range(len(Company_list)):
-    address = Company_list[i]["address"]
-    print(address)
+for i in Company_list:
+    print(i)
 
 
 
