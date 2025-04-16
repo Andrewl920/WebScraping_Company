@@ -54,11 +54,16 @@ for company in range(numbers):
         Company_info["Website"] = website_element["href"]
         Company_list.append(Company_info)
 
-    
+# get the total page number
+def total_page_number():
+    element = driver.find_element(By.XPATH, "//p[contains(text(),'Showing results')]")
+    total_page_number = element.text.split(" ")[4]
+    return total_page_number
 
 
-for i in Company_list:
-    print(i)
+
+# for i in Company_list:
+#     print(i)
 
 
 
