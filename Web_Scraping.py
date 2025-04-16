@@ -62,8 +62,8 @@ def total_page_number():
 
 
 
-# for i in Company_list:
-#     print(i)
+for i in Company_list:
+    print(i)
 
 
 
