@@ -27,6 +27,7 @@ def fill_in_value(sheetname, coordinate, company_info):
 
     workbook.save(file_path)
 
+#find out the state name
 def state_name(company_info):
     state = company_info["Address"].split(" ")[1]
     return state
@@ -36,11 +37,8 @@ def check_duplicate(sheetname, company_info):
     company_name = company_info["Name"]
     for row in workbook[sheetname].iter_rows(max_col=1):
         for cell in row:
-            print(cell.value)
             if cell.value == company_name:
                 return True 
             else:
                 continue
     return False
-# fill_in_value(state_name(dict), find_last_row(state_name(dict)), dict)
-print(check_duplicate(state_name(dict), dict))
