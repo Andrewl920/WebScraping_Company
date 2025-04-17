@@ -14,7 +14,9 @@ def find_last_row(sheetname):
                 last_cell = cell.coordinate
                 col = last_cell[:1]
                 row = int(last_cell[1:]) + 1
-                return(col + str(row))
+                
+                
+    return(col + str(row))
 
 #fill in the information of the company according to the state
 def fill_in_value(sheetname, coordinate, company_info):
@@ -29,16 +31,35 @@ def fill_in_value(sheetname, coordinate, company_info):
 
 #find out the state name
 def state_name(company_info):
-    state = company_info["Address"].split(" ")[1]
+    state = ["QLD", "NSW", "VIC", "SA", "ACT", "WA", "NT", "TAS"]
+    if company_info["Address"].split(" ")[1] in state:
+        state = company_info["Address"].split(" ")[1]
+    elif company_info["Address"].split(" ")[2] in state:
+        state = company_info["Address"].split(" ")[2]
+    else:
+        return "No state"
+    
     return state
 
 #check if there is duplicate
 def check_duplicate(sheetname, company_info):
     company_name = company_info["Name"]
-    for row in workbook[sheetname].iter_rows(max_col=1):
-        for cell in row:
-            if cell.value == company_name:
-                return True 
-            else:
-                continue
+    company_address = company_info["Address"]
+    for row in range(2, workbook[sheetname].max_row+1):
+        name = workbook[sheetname].cell(row=row, column =1)
+        address = workbook[sheetname].cell(row=row, column =4)
+        if name == company_name and address == company_address:
+            return True 
+        else:
+            continue
+
+        # for cell in row:
+        #     column_number = cell.column
+        #     address_cooridnate = "C" + str(column_number)
+        #     print(workbook[sheetname][address_cooridnate].value)
+        #     print(company_address)
+        #     if cell.value == company_name and workbook[sheetname][address_cooridnate].value == company_address:
+        #         return True 
+        #     else:
+        #         continue
     return False
