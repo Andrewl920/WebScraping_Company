@@ -12,7 +12,7 @@ def main():
     if boxes_number == 0:
         return "This is the end of the search result"
     else:
-            for company in range(2):
+            for company in range(boxes_number):
                     Company_info = {}
                     if company == 0:
                         continue
@@ -39,7 +39,6 @@ def main():
         last_row = excel.find_last_row(state_name)
 
         #check duplicate
-        # print(excel.check_duplicate(state_name, each_company))
         if excel.check_duplicate(state_name, each_company) == True:
              continue
         else:

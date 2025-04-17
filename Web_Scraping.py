@@ -24,8 +24,7 @@ def open_new_page(page_number=1):
 
     url = "https://www.yellowpages.com.au/search/listings?clue=air+conditioning&locationClue=All+States"
 
-    chromedriver_path = "C:\Program Files\Google\Chrome\Application\chrome.exe"
-    service = Service(r"C:\Users\stars\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
+    service = Service(r"C:\Users\Andrewl\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
     options = Options()
     # options.add_experimental_option("detach", True)
     driver = webdriver.Chrome(service = service, options = options)
