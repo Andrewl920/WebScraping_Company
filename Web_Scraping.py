@@ -15,9 +15,9 @@ def open_new_page(page_number=1):
     global driver
     global soup
 
-    url = "https://www.yellowpages.com.au/search/listings?clue=air+conditioning&locationClue=All+States"
+    url = "https://www.yellowpages.com.au/search/listings?clue=Air+conditioning&locationClue=SA"
 
-    service = Service(r"C:\Users\stars\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
+    service = Service(r"C:\Users\Administrator\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
     options = Options()
     # options.add_experimental_option("detach", True)
     driver = webdriver.Chrome(service = service, options = options)
@@ -44,14 +44,16 @@ def get_name_element(number):
 
 def get_phone_element(number):
     #check if the company have phone number
+    # print(number)
     details = soup.find_all("div", "Box__Div-sc-dws99b-0 enijwQ MuiCardContent-root")[number]
     phone_box = details.find_all("a", "MuiButtonBase-root MuiButton-root MuiButton-text ButtonPhone wobble-call MuiButton-textSecondary MuiButton-fullWidth")
     if phone_box == []:
         phone_element = None
     else:
         phone_element = details.find_all("a", class_="MuiButtonBase-root MuiButton-root MuiButton-text ButtonPhone wobble-call MuiButton-textSecondary MuiButton-fullWidth")[0].get_text(strip=True)
-        
+            
     return phone_element
+
 
 def get_website_element(number):
     #check if the company have website

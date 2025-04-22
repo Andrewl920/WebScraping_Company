@@ -1,6 +1,6 @@
 from openpyxl import load_workbook 
 
-file_path = r"C:\Users\stars\OneDrive\Desktop\Phone_number_scrapping\Air Con and Electrical (Yellow Page).xlsx"
+file_path = r"C:\Users\Administrator\Desktop\WebScraping_Company\Air Con and Electrical (Yellow Page).xlsx"
 workbook = load_workbook(filename = file_path)
 
 # the first row is title
@@ -31,7 +31,7 @@ def fill_in_value(sheetname, coordinate, company_info):
 
 #find out the state name
 def state_name(company_info):
-    print(company_info["Address"])
+    # print(company_info["Address"])
     state = ["QLD", "NSW", "VIC", "SA", "ACT", "WA", "NT", "TAS"]
     if company_info["Address"].split(" ")[1] in state:
         state = company_info["Address"].split(" ")[1]
@@ -39,6 +39,8 @@ def state_name(company_info):
         state = company_info["Address"].split(" ")[2]
     elif company_info["Address"].split(" ")[3] in state:
         state = company_info["Address"].split(" ")[3]
+    elif company_info["Address"].split(" ")[4] in state:
+        state = company_info["Address"].split(" ")[4]
     else:
         return "No state"
     
