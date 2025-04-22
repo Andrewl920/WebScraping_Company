@@ -13,10 +13,16 @@ def init(page_number):
     driver.get(url)
     return driver
 
-def find_box(driver):
+def find_box():
+    global driver
     time.sleep(3)
     hidden_box = driver.find_elements(By.CLASS_NAME, "bXFSCz")
     return hidden_box
+
+def find_total_box():
+    global driver
+    list_box = find_box()
+    return len(list_box)
 
 def get_name_element(number):
     global driver
@@ -40,11 +46,16 @@ def get_state_name(number):
     return state
 
 
-find_box(init(21))[0].click()
-print(get_name_element(1))
-print(get_phone_element(1))
-print(get_address_element(1))
-print(get_state_name(1))
+# find_box(init(21))[0].click()
+# print(get_name_element(1))
+# print(get_phone_element(1))
+# print(get_address_element(1))
+# print(get_state_name(1))
 
-# for i in find_box(init(21)):
-#     print(i.text)
+init(21)
+for i in range(find_total_box()):
+    find_box()[i].click()   
+    print(get_name_element(i))
+    print(get_phone_element(i))
+    print(get_address_element(i))
+    print(get_state_name(i))
