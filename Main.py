@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import Web_Scraping as Ws
 import Excel as excel
+import Web_Scraping_Selenium as Ws_Selenium
 
 
 def main():
@@ -31,16 +32,23 @@ def main():
                                     phone = Ws.get_phone_element(company)
                                     website = Ws.get_website_element(company)
                                     address = Ws.get_address(company)
-                                    Company_info["Name"] = name
-                                    Company_info["Phone"] = phone
-                                    Company_info["Address"] = address
-                                    Company_info["Website"] = website
+                                    
 
-                                    Company_list.append(Company_info)
+                                    
                                 except:
-                                     url = url + "&pageNumber=" + str(page_number)
-
-        # print(Company_list)
+                                    
+                                    Ws_Selenium.init(page_number)
+                                    Ws_Selenium.find_box(Ws_Selenium.driver)[company].click()
+                                    name = Ws_Selenium.get_name_element(company)
+                                    phone = Ws_Selenium.get_phone_element(company)
+                                    website = None
+                                    address = Ws_Selenium.get_address_element(company)
+                                
+                                Company_info["Name"] = name
+                                Company_info["Phone"] = phone
+                                Company_info["Address"] = address
+                                Company_info["Website"] = website
+                                Company_list.append(Company_info)
                 
         
             # fill in the excel sheet
