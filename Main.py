@@ -15,7 +15,7 @@ def main():
         Ws_Selenium.init(page_number)
         #get the total number of boxes
         total_box_number = Ws_Selenium.find_total_box()
-        hidden_box_number = 1
+        hidden_box_number = 0
         # boxes_number = Ws.total_box_number()
         if total_box_number == 0:
             break
@@ -24,7 +24,7 @@ def main():
             for company in range(total_box_number):
                     Company_info = {}
 
-                    if company == 0:
+                    if company == 0 or company == 36:
                         continue
                     elif Ws_Selenium.find_hidden(Ws_Selenium.find_large_container(company)):
                         print(company, hidden_box_number)
@@ -46,7 +46,6 @@ def main():
                     Company_info["Website"] = website
                     Company_list.append(Company_info)
                     print(name, website)
-                    # print(company)
 
 
             # try:
@@ -88,7 +87,7 @@ def main():
         
             # fill in the excel sheet
         for each_company in Company_list:
-                Ws_Selenium.find_box()[company].click()
+                # Ws_Selenium.find_box()[company].click()
                 state_name = excel.state_name(each_company)
                 # print(state_name)
                 last_row = excel.find_last_row(state_name)
@@ -101,9 +100,6 @@ def main():
 
         print("Just finsihed the web scraping of page" + str(page_number))
         page_number += 1
-        break
         
-        
-
 if __name__ == "__main__":
     main()

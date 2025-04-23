@@ -3,7 +3,6 @@ from selenium.webdriver.common.by import By
 import time
 from selenium.common.exceptions import NoSuchElementException
 
-# url = "https://www.yellowpages.com.au/search/listings?clue=Electrical&locationClue=QLD"
 driver = None
 
 def init(page_number):
@@ -78,7 +77,6 @@ def get_website_element(number):
         website_element = None
         return website_element
     
-
 def get_address_element(number):
     global driver
     address_element = driver.find_elements(By.CLASS_NAME, "MuiTypography-colorTextSecondary")[number+1]
@@ -90,6 +88,6 @@ def get_state_name(number):
     state = get_address_element(number).split(" ")[-2]
     return state
 
-init(1)
-for i in range(len(find_hidden_box())):
-    print(find_hidden_box()[i].text, i)
+# init(1)
+# for i in range(len(find_hidden_box())):
+#     print(find_hidden_box()[i].text, i)
