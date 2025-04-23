@@ -1,6 +1,6 @@
 from openpyxl import load_workbook 
 
-file_path = r"C:\Users\Administrator\Desktop\WebScraping_Company\Air Con and Electrical (Yellow Page).xlsx"
+file_path = r"C:\Users\Andrewl\Desktop\WebScraping_Company\Air Con and Electrical (Yellow Page).xlsx"
 workbook = load_workbook(filename = file_path)
 
 # the first row is title

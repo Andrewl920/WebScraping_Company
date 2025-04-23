@@ -20,13 +20,33 @@ def init(page_number):
 
     return driver
 
+def find_large_container(number):
+    global driver
+    large_container = driver.find_elements(By.CLASS_NAME, "iOfhmk")[number]
+    return large_container
+
+def find_hidden_box():
+    global driver
+    time.sleep(3)
+    hidden_box = driver.find_elements(By.CLASS_NAME, "bXFSCz")
+    return hidden_box
+    
 def find_box():
     global driver
     time.sleep(3)
     # hidden_box = driver.find_elements(By.CLASS_NAME, "bXFSCz")
-    hidden_box = driver.find_elements(By.CLASS_NAME, "enijwQ")
+    box = driver.find_elements(By.CLASS_NAME, "enijwQ")
     
-    return hidden_box
+    return box
+
+def find_hidden(container):
+    global driver
+    try:
+        hidden_element = container.find_elements(By.CLASS_NAME, "bXFSCz")
+        if hidden_element:
+            return True
+    except: 
+        return False
 
 def find_total_box():
     global driver
@@ -35,33 +55,33 @@ def find_total_box():
 
 def get_name_element(number):
     global driver
-    name_element = driver.find_elements(By.CLASS_NAME, "MuiTypography-displayBlock")[number+1]
+    name_element = driver.find_elements(By.CLASS_NAME, "MuiTypography-displayBlock")[number]
     return name_element.text
 
 def get_phone_element(number):
     global driver
     time.sleep(3)
-    phone_element = driver.find_elements(By.CLASS_NAME, "fXPEMO")[number+1]
+    phone_element = driver.find_elements(By.CLASS_NAME, "fXPEMO")[number]
     return phone_element.text
 
 def get_website_element(number):
     global driver
     time.sleep(3)
-    #find the larger container\
-    container_element = driver.find_elements(By.CLASS_NAME, "enijwQ")[number+1]
+    #find the larger container
+    container_element = driver.find_elements(By.CLASS_NAME, "enijwQ")[number]
 
     #search for the website button
     try:
-        website_element = container_element.find_elements(By.CLASS_NAME, "ButtonWebsite")
-        return website_element[0].get_attribute("href")
-    except NoSuchElementException:
+        website_element = container_element.find_elements(By.CLASS_NAME, "ButtonWebsite")[0].get_attribute("href")
+        return website_element
+    except IndexError as e:
         website_element = None
         return website_element
     
 
 def get_address_element(number):
     global driver
-    address_element = driver.find_elements(By.CLASS_NAME, "MuiTypography-colorTextSecondary")[number+2]
+    address_element = driver.find_elements(By.CLASS_NAME, "MuiTypography-colorTextSecondary")[number+1]
     name, suburb, state = address_element.text.split(",")
     return (suburb + state).lstrip()
 
@@ -70,11 +90,6 @@ def get_state_name(number):
     state = get_address_element(number).split(" ")[-2]
     return state
 
-# init(1)
-# for i in range(find_total_box()) :
-#         print(find_total_box())
-#         # find_box()[i].click()   
-#         print(get_name_element(i))
-#         print(get_phone_element(i))
-#         print(get_address_element(i))
-#         print(get_website_element(i))
+init(1)
+for i in range(len(find_hidden_box())):
+    print(find_hidden_box()[i].text, i)
