@@ -23,9 +23,10 @@ def main():
         else:
              for company in range(hidden_box_number):
                     Company_info = {}
+                    print(company)
 
                     
-                    if Ws_Selenium.find_box()[company]:
+                    if Ws_Selenium.find_box()[company] > 0:
                         Ws_Selenium.find_box()[company].click()
                         name = Ws_Selenium.get_name_element(company)
                         phone = Ws_Selenium.get_phone_element(company)
