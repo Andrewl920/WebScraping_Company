@@ -7,7 +7,7 @@ driver = None
 
 def init(page_number):
     global driver
-    url = "https://www.yellowpages.com.au/search/listings?clue=Air+conditoning&locationClue=QLD"
+    url = "https://www.yellowpages.com.au/search/listings?clue=Air+conditoning&locationClue=VIC"
 
     if page_number == 1:
         url = url
@@ -60,8 +60,16 @@ def get_name_element(number):
 def get_phone_element(number):
     global driver
     time.sleep(3)
-    phone_element = driver.find_elements(By.CLASS_NAME, "fXPEMO")[number]
-    return phone_element.text
+    container_element = driver.find_elements(By.CLASS_NAME, "enijwQ")[number]
+
+    #seach the larger container
+    try:
+        phone_element = container_element.find_elements(By.CLASS_NAME, "ButtonPhone")[0].get_attribute("href")
+        phone_element = phone_element.split(":")[1]
+    except IndexError as e:
+        phone_element = None
+
+    return phone_element
 
 def get_website_element(number):
     global driver
@@ -88,6 +96,9 @@ def get_state_name(number):
     state = get_address_element(number).split(" ")[-2]
     return state
 
-# init(1)
-# for i in range(len(find_hidden_box())):
-#     print(find_hidden_box()[i].text, i)
+# init(4)
+# find_hidden_box()[6].click()
+# print(get_name_element(7))
+# print(get_phone_element(7))
+# print(get_website_element(7))
+# print(get_address_element(7))

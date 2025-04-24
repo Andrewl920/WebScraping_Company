@@ -1,6 +1,6 @@
 from openpyxl import load_workbook 
 
-file_path = r"C:\Users\Andrewl\Desktop\WebScraping_Company\Air Con and Electrical (Yellow Page).xlsx"
+file_path = r"C:\Users\Administrator\Desktop\WebScraping_Company\Air Con and Electrical (Yellow Page).xlsx"
 workbook = load_workbook(filename = file_path)
 
 # the first row is title
@@ -49,12 +49,12 @@ def state_name(company_info):
 #check if there is duplicate
 def check_duplicate(sheetname, company_info):
     company_name = company_info["Name"]
-    company_website = company_info["Website"]
+    company_address = company_info["Address"]
     for row in workbook[sheetname].iter_rows(min_row=1, values_only=True):
         cell_a = row[0] # Column A
-        cell_d = row[3] # Column D
+        cell_c = row[2] # Column D
         
-        if company_name == cell_a and company_website == cell_d:
+        if company_name == cell_a and company_address == cell_c:
             return True
         else:
             continue

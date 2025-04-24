@@ -45,7 +45,6 @@ def main():
                     Company_info["Address"] = address
                     Company_info["Website"] = website
                     Company_list.append(Company_info)
-                    print(name, website)
 
 
             # try:
