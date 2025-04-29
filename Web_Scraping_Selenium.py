@@ -7,7 +7,7 @@ driver = None
 
 def init(page_number):
     global driver
-    url = "https://www.yellowpages.com.au/search/listings?clue=Air+conditoning&locationClue=VIC"
+    url = "https://www.yellowpages.com.au/search/listings?clue=Sparky&locationClue=All+States"
 
     if page_number == 1:
         url = url
@@ -87,7 +87,7 @@ def get_website_element(number):
     
 def get_address_element(number):
     global driver
-    address_element = driver.find_elements(By.CLASS_NAME, "MuiTypography-colorTextSecondary")[number+1]
+    address_element = driver.find_elements(By.CLASS_NAME, "MuiTypography-colorTextSecondary")[number]
     name, suburb, state = address_element.text.split(",")
     return (suburb + state).lstrip()
 
@@ -95,10 +95,3 @@ def get_state_name(number):
     global driver
     state = get_address_element(number).split(" ")[-2]
     return state
-
-# init(4)
-# find_hidden_box()[6].click()
-# print(get_name_element(7))
-# print(get_phone_element(7))
-# print(get_website_element(7))
-# print(get_address_element(7))

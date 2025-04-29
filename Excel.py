@@ -50,11 +50,15 @@ def state_name(company_info):
 def check_duplicate(sheetname, company_info):
     company_name = company_info["Name"]
     company_address = company_info["Address"]
+    company_phone = company_info["Phone"]
+    company_website = company_info["Website"]
     for row in workbook[sheetname].iter_rows(min_row=1, values_only=True):
         cell_a = row[0] # Column A
-        cell_c = row[2] # Column D
+        cell_b = row[1] # Column B
+        cell_c = row[2] # Column C
+        cell_d = row[3] # Column D
         
-        if company_name == cell_a and company_address == cell_c:
+        if company_name == cell_a and company_phone == cell_b and company_address == cell_c and company_website == cell_d:
             return True
         else:
             continue

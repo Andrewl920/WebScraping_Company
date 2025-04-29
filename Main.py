@@ -39,6 +39,9 @@ def main():
                         phone = Ws_Selenium.get_phone_element(company)
                         website = Ws_Selenium.get_website_element(company)
                         address = Ws_Selenium.get_address_element(company)
+                    
+                    print(name)
+                    print(address)
 
                     Company_info["Name"] = name
                     Company_info["Phone"] = phone
