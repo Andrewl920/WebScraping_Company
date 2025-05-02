@@ -6,7 +6,7 @@ import Web_Scraping_Selenium as Ws_Selenium
 
 
 def main():
-    page_number = 1
+    page_number = 22
 
     while True:
         Company_list = []
@@ -39,9 +39,6 @@ def main():
                         phone = Ws_Selenium.get_phone_element(company)
                         website = Ws_Selenium.get_website_element(company)
                         address = Ws_Selenium.get_address_element(company)
-                    
-                    print(name)
-                    print(address)
 
                     Company_info["Name"] = name
                     Company_info["Phone"] = phone
