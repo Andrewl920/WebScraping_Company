@@ -7,7 +7,7 @@ driver = None
 
 def init(page_number):
     global driver
-    url = "https://www.yellowpages.com.au/search/listings?clue=Electrican&locationClue=NSW"
+    url = "https://www.yellowpages.com.au/search/listings?clue=Electrican&locationClue=VIC"
 
     if page_number == 1:
         url = url

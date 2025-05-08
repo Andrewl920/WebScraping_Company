@@ -6,7 +6,8 @@ import Web_Scraping_Selenium as Ws_Selenium
 
 
 def main():
-    page_number = 22
+    page_number = 1
+
 
     while True:
         Company_list = []
