@@ -15,7 +15,7 @@ def open_new_page(page_number=1):
     global driver
     global soup
 
-    url = "https://www.yellowpages.com.au/search/listings?clue=Electrican&locationClue=VIC"
+    url = "https://www.yellowpages.com.au/search/listings?clue=Electrican&locationClue=ACT"
 
     service = Service(r"C:\Users\Administrator\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
     options = Options()
