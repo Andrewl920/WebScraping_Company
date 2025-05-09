@@ -6,7 +6,7 @@ import Web_Scraping_Selenium as Ws_Selenium
 
 
 def main():
-    page_number = 6
+    page_number = 1
 
 
     while True:
