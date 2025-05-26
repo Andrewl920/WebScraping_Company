@@ -1,8 +1,8 @@
 from openpyxl import load_workbook 
 
 class Excel:
-    def __init__(self, file_path):
-        self.file_path = file_path
+    def __init__(self):
+        self.file_path = r"C:\Users\Administrator\Desktop\WebScraping_Company\Air Con and Electrical (Yellow Page).xlsx"
         self.workbook = load_workbook(filename = self.file_path)
 
     #find the first cell that not filled with value

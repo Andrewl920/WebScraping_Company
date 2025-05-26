@@ -3,14 +3,12 @@ from selenium.webdriver.common.by import By
 import time
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
 
 class WebScraping:
     def __init__(self, page_number = 1):
         self.driver = None
         self.service = Service(r"C:\Users\Administrator\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe")
-        self.options = Options()
-        self.driver = webdriver.Chrome(service = self.service, options = self.options)
+        self.driver = webdriver.Chrome()
         self.url = "https://www.yellowpages.com.au/search/listings?clue=Electrican&locationClue=TAS"
 
         if page_number == 1:
@@ -18,7 +16,6 @@ class WebScraping:
         else: 
             self.url = self.url + "&pageNumber=" + str(page_number)
 
-        self.driver = webdriver.Chrome(service = self.service, options = self.options)
         self.driver.get(self.url)
 
     def find_large_container(self, number):

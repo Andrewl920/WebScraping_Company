@@ -3,15 +3,14 @@ import Excel as excel
 import Web_Scraping_Selenium as Ws_Selenium
 
 
-def main():
+if __name__ == "__main__":
     page_number = 1
-
 
     while True:
         Company_list = []
         
         # Ws.open_new_page(page_number)
-        Ws_Selenium.init(page_number)
+        Ws_Selenium = Ws_Selenium.WebScraping(page_number)
         #get the total number of boxes
         total_box_number = Ws_Selenium.find_total_box()
         hidden_box_number = 0
@@ -86,6 +85,7 @@ def main():
             # fill in the excel sheet
         for each_company in Company_list:
                 # Ws_Selenium.find_box()[company].click()
+                excel = excel.Excel()
                 state_name = excel.state_name(each_company)
                 # print(state_name)
                 last_row = excel.find_last_row(state_name)
@@ -99,5 +99,3 @@ def main():
         print("Just finsihed the web scraping of page" + str(page_number))
         page_number += 1
         
-if __name__ == "__main__":
-    main()
