@@ -1,12 +1,10 @@
 import requests
-from bs4 import BeautifulSoup
-import Web_Scraping as Ws
 import Excel as excel
 import Web_Scraping_Selenium as Ws_Selenium
 
 
 def main():
-    page_number = 9
+    page_number = 1
 
 
     while True:
