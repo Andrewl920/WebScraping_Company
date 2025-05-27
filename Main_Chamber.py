@@ -18,6 +18,7 @@ if __name__ == "__main__":
             scraping.find_type_input(type)
             scraping.find_location_input(city)
             total_business_card = scraping.find_business_card()
+
             for card in range(len(total_business_card)):
                 scraping.driver.switch_to.window(scraping.driver.window_handles[0])
                 total_business_card = scraping.find_business_card()
@@ -36,6 +37,8 @@ if __name__ == "__main__":
                 scraping.driver.close()
 
                 time.sleep(10)
+            
+            scraping.click_next_page()
 
 
 

@@ -78,8 +78,8 @@ if __name__ == "__main__":
     # web_scraping_chamber.find_type_input("Air Conditioning")
     # web_scraping_chamber.find_location_input("Brisbane")
     # print(web_scraping_chamber.find_business_card())
-    print(web_scraping_chamber.get_company_name())
-    print(web_scraping_chamber.get_address())
-    print(web_scraping_chamber.get_phone_number())
-    web_scraping_chamber.get_website()
+    time.sleep(15)
+    web_scraping_chamber.click_next_page().click()
+    time.sleep(5)
+    
         
