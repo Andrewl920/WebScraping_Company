@@ -42,7 +42,7 @@ class WebScraping_chamber:
     def find_business_card(self):
         time.sleep(10) 
         self.driver.implicitly_wait(5)
-        business_card = self.driver.find_elements(By.XPATH, '//a[@target="_blank"]')
+        business_card = self.driver.find_elements(By.CLASS_NAME, "FeaturedPlacePreview")
         return business_card
     
     def get_company_name(self):
