@@ -19,19 +19,23 @@ if __name__ == "__main__":
             scraping.find_location_input(city)
             total_business_card = scraping.find_business_card()
             for card in range(len(total_business_card)):
+                scraping.driver.switch_to.window(scraping.driver.window_handles[0])
+                total_business_card = scraping.find_business_card()
                 total_business_card[card].click()
 
                 time.sleep(10)
-                ActionChains(scraping.driver).send_keys(Keys.ESCAPE).perform()
-
+                scraping.driver.switch_to.window(scraping.driver.window_handles[-1])
                 name = scraping.get_company_name()
-                print(name)
                 # time.sleep(1000)
                 address = scraping.get_address()
                 phone_number = scraping.get_phone_number()
                 website = scraping.get_website()
 
                 print(name, address, phone_number, website)
-                tabs = scraping.driver.window_hanldes
+                scraping.driver.switch_to.window(scraping.driver.window_handles[-1])
                 scraping.driver.close()
+
+                time.sleep(10)
+
+
 

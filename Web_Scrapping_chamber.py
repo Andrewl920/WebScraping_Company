@@ -13,7 +13,7 @@ class WebScraping_chamber:
         self.options = uc.ChromeOptions()
         self.options.headless = False
         self.driver = uc.Chrome(options=self.options)
-        self.url = "https://australia.chamberofcommerce.com/business-directory/queensland/kawana/air-conditioning-contractor/3425459-jms-group-australia-refrigeration-air-conditioning-electrical"
+        self.url = "https://australia.chamberofcommerce.com/search?what=Air+Conditioning&where=Rockhampton"
         self.driver.execute_cdp_cmd("Network.setBlockedURLs", {"urls": ["*doubleclick.net*", "*ads.google.com*"]})
         self.driver.get(self.url)
 
