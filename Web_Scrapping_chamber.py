@@ -53,8 +53,7 @@ class WebScraping_chamber:
         city = self.driver.find_element(By.XPATH, '//span[@selector-type="City"]')
         state = self.driver.find_element(By.XPATH, '//span[@selector-type="State"]')
         post_code = self.driver.find_element(By.XPATH, '//span[@selector-type="Zip"]')
-        return city.text[:-1] + " " + state.text + " " + post_code.text
-    
+        return city, state, post_code
     def get_phone_number(self):
         phone_number = self.driver.find_element(By.XPATH, '//a[@selector-type="Phone"]')
         return phone_number.text
@@ -75,11 +74,20 @@ class WebScraping_chamber:
 
 if __name__ == "__main__":
     web_scraping_chamber = WebScraping_chamber()
-    # web_scraping_chamber.find_type_input("Air Conditioning")
-    # web_scraping_chamber.find_location_input("Brisbane")
+    web_scraping_chamber.find_type_input("Air Conditioning")
+    web_scraping_chamber.find_location_input("Brisbane")
     # print(web_scraping_chamber.find_business_card())
     time.sleep(15)
     web_scraping_chamber.click_next_page().click()
     time.sleep(5)
+
+    while True:
+        try:
+            wait = WebDriverWait(web_scraping_chamber, 5)
+            next_page_button = wait.until(EC.element_to_be_clickable(web_scraping_chamber.click_next_page()))
+            next_page_button.click()
+            time.sleep(5)
+        except: 
+            print("It is the end of the page")
     
         
