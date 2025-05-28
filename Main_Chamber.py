@@ -48,8 +48,14 @@ if __name__ == "__main__":
                 scraping.driver.switch_to.window(scraping.driver.window_handles[-1])
                 scraping.driver.close()
             
+            # Company_info = {}
+            # Company_info["Name"] = "name"
+            # Company_info["Phone"] = "phone_number"
+            # Company_info["Address"] = "address"
+            # Company_info["Website"] = "website"
+            # Company_list.append(Company_info)
+            # state = "QLD"
             
-
             #put the company info in the excel
             for each_company in Company_list:
                 excel = excel.Excel()

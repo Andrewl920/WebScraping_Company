@@ -50,20 +50,29 @@ class WebScraping_chamber:
         return company_name.text
 
     def get_address(self):
-        city = self.driver.find_element(By.XPATH, '//span[@selector-type="City"]')
-        state = self.driver.find_element(By.XPATH, '//span[@selector-type="State"]')
-        post_code = self.driver.find_element(By.XPATH, '//span[@selector-type="Zip"]')
+        city = self.driver.find_element(By.XPATH, '//span[@selector-type="City"]').text
+        state = self.driver.find_element(By.XPATH, '//span[@selector-type="State"]').text
+        post_code = self.driver.find_element(By.XPATH, '//span[@selector-type="Zip"]').text
         return city, state, post_code
+    
     def get_phone_number(self):
         phone_number = self.driver.find_element(By.XPATH, '//a[@selector-type="Phone"]')
         return phone_number.text
     
     def get_website(self):
         container = self.driver.find_elements(By.CLASS_NAME, "card-body")[3]
-        sentense = container.find_elements(By.CLASS_NAME, "text-dark")[5].text
-        seperate_text = sentense.split(": ")
-        website = seperate_text[1]
-        return website
+        try: 
+            sentense = container.find_elements(By.CLASS_NAME, "text-dark")[5].text
+            seperate_text = sentense.split(": ")
+            website = seperate_text[1]
+
+            if website.startswith("http"):
+                return website
+            else:
+                return None
+            
+        except:
+            return None
     
     def click_next_page(self):
         next_page_button = self.driver.find_elements(By.CLASS_NAME, "page-link")[-1]
