@@ -16,65 +16,76 @@ if __name__ == "__main__":
         Company_list = []
 
         for type in search_type:
+            page = 1
             scraping = Webscraping.WebScraping_chamber()
             scraping.find_type_input(type)
             scraping.find_location_input(city)
-            total_business_card = scraping.find_business_card()
-            print(len(total_business_card))
 
-            for card in range(len(total_business_card)):
-                while True:
+            while True:
+                total_business_card = scraping.find_business_card()
+                for card in range(len(total_business_card)):
                     Company_info = {}
+                    time.sleep(5)
                     scraping.driver.switch_to.window(scraping.driver.window_handles[0])
-                    total_business_card = scraping.find_business_card()
-                    total_business_card[card].click()
+                    
+                    try:
+                        # Use the safe click method
+                        if not scraping.safe_click(total_business_card[card]):
+                            print(f"Could not click card {card}, skipping...")
+                            continue
+                            
+                        time.sleep(10)
+                        scraping.driver.switch_to.window(scraping.driver.window_handles[-1])
+                        name = scraping.get_company_name()
+                        # time.sleep(1000)
+                        city, state, post_code = scraping.get_address()
+                        state = state
+                        address = city + " " + state + " " + post_code
+                        phone_number = scraping.get_phone_number()
+                        website = scraping.get_website()
 
-                    time.sleep(10)
-                    scraping.driver.switch_to.window(scraping.driver.window_handles[-1])
-                    name = scraping.get_company_name()
-                    # time.sleep(1000)
-                    city, state, post_code = scraping.get_address()
-                    state = state
-                    address = city + " " + state + " " + post_code
-                    phone_number = scraping.get_phone_number()
-                    website = scraping.get_website()
+                        print(name, address, phone_number, website)
+                        Company_info["Name"] = name
+                        Company_info["Phone"] = phone_number
+                        Company_info["Address"] = address
+                        Company_info["Website"] = website
+                        Company_list.append(Company_info)
 
-                    print(name, address, phone_number, website)
-                    Company_info["Name"] = name
-                    Company_info["Phone"] = phone_number
-                    Company_info["Address"] = address
-                    Company_info["Website"] = website
-                    Company_list.append(Company_info)
+                        scraping.driver.switch_to.window(scraping.driver.window_handles[-1])
+                        scraping.driver.close()
+                    except Exception as e:
+                        print(f"Error processing card {card}: {str(e)}")
+                        continue
 
-                    scraping.driver.switch_to.window(scraping.driver.window_handles[-1])
-                    scraping.driver.close()
-            
-                    # Company_info = {}
-                    # Company_info["Name"] = "name"
-                    # Company_info["Phone"] = "phone_number"
-                    # Company_info["Address"] = "address"
-                    # Company_info["Website"] = "website"
-                    # Company_list.append(Company_info)
-                    # state = "QLD"
-                    excel = excel.Excel()
-                    #put the company info in the excel
-                    for each_company in Company_list:
-                        last_row = excel.find_last_row(state)
+                excel_handler = excel.Excel()
+                #put the company info in the excel
+                for each_company in Company_list:
+                    try:
+                        last_row = excel_handler.find_last_row(state)
 
-                        if excel.check_duplicate(state, each_company) == True:
+                        if excel_handler.check_duplicate(state, each_company) == True:
                             continue
                         else:
-                            excel.fill_in_value(state, last_row, each_company)
+                            excel_handler.fill_in_value(state, last_row, each_company)
+                            print(f"Saved company {each_company['Name']} to {state} sheet")
+                    except Exception as e:
+                        print(f"Error saving to Excel: {str(e)}")
+                        continue
 
-                    print("Just finsihed the web scraping of this page")
-
-                    try:
-                        wait = WebDriverWait(scraping.driver, 5)
-                        next_page_button = wait.until(EC.element_to_be_clickable(scraping.click_next_page()))
-                        next_page_button.click()
-                        time.sleep(5)
-                    except:
-                        break
+                print("Just finished the web scraping of this page")
+                
+                try:
+                    scraping.driver.switch_to.window(scraping.driver.window_handles[0])
+                    wait = WebDriverWait(scraping.driver, 5)
+                    next_page_button = wait.until(EC.element_to_be_clickable(scraping.click_next_page()))
+                    next_page_button.click()
+                    print("next page")
+                    time.sleep(5) 
+                except:
+                    print("No more pages to scrape")
+                    break
+                print(page)
+                page += 1
                 
 
 

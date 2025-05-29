@@ -39,11 +39,39 @@ class WebScraping_chamber:
         type_input.send_keys(Keys.RETURN)
         time.sleep(5) 
 
+    def safe_click(self, element):
+        try:
+            # Scroll element into view
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+            time.sleep(2)  # Wait for scroll to complete
+            
+            # Try regular click first
+            try:
+                element.click()
+                return True
+            except:
+                # If regular click fails, use JavaScript click
+                self.driver.execute_script("arguments[0].click();", element)
+                return True
+        except Exception as e:
+            print(f"Error clicking element: {str(e)}")
+            return False
+
     def find_business_card(self):
         time.sleep(10) 
         self.driver.implicitly_wait(5)
-        business_card = self.driver.find_elements(By.CLASS_NAME, "FeaturedPlacePreview")
-        return business_card
+        business_cards = self.driver.find_elements(By.CLASS_NAME, "FeaturedPlacePreview")
+        
+        # Filter out any non-clickable cards
+        clickable_cards = []
+        for card in business_cards:
+            try:
+                if card.is_displayed() and card.is_enabled():
+                    clickable_cards.append(card)
+            except:
+                continue
+                
+        return clickable_cards
     
     def get_company_name(self):
         company_name = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, "h1")))
@@ -56,12 +84,15 @@ class WebScraping_chamber:
         return city, state, post_code
     
     def get_phone_number(self):
-        phone_number = self.driver.find_element(By.XPATH, '//a[@selector-type="Phone"]')
-        return phone_number.text
+        try: 
+            phone_number = self.driver.find_element(By.XPATH, '//a[@selector-type="Phone"]')
+            return phone_number.text
+        except:
+            return None
     
     def get_website(self):
-        container = self.driver.find_elements(By.CLASS_NAME, "card-body")[3]
         try: 
+            container = self.driver.find_elements(By.CLASS_NAME, "card-body")[3]
             sentense = container.find_elements(By.CLASS_NAME, "text-dark")[5].text
             seperate_text = sentense.split(": ")
             website = seperate_text[1]
