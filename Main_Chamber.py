@@ -78,12 +78,17 @@ if __name__ == "__main__":
                     scraping.driver.switch_to.window(scraping.driver.window_handles[0])
                     wait = WebDriverWait(scraping.driver, 5)
                     next_page_button = wait.until(EC.element_to_be_clickable(scraping.click_next_page()))
-                    next_page_button.click()
-                    print("next page")
-                    time.sleep(5) 
+                    if next_page_button.is_enabled():
+                        next_page_button.click()
+                        print("next page")
+                        time.sleep(5) 
+                    else:
+                        print("No more pages to scrape")
+                        break
                 except:
                     print("No more pages to scrape")
                     break
+                
                 print(page)
                 page += 1
                 
