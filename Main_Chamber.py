@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 major_city = ["Sydney", "Newcastle", "Wollongong", "Melbourne", "Geelong", "Ballarat", "Bendigo", "Brisbane", "Gold Coast", "Sunshine Coast", "Townsville", "Cairns", "Toowoomba", "Mackay", "Rockhampton", "Perth", "Bunbury", "Geraldton", "Adelaide", "Mount Gambier", "Hobart", "Launceston", "Devonport", "Burnie", "Canberra", "Darwin", "Alice Springs"]
-search_type = ["Air Conditioning", "Electrican"]
+search_type = ["Air Conditioning", "Electrician"]
 
 if __name__ == "__main__":
     
@@ -16,6 +16,8 @@ if __name__ == "__main__":
         Company_list = []
 
         for type in search_type:
+            if type == "Air Conditioning":
+                continue
             page = 1
             scraping = Webscraping.WebScraping_chamber()
             scraping.find_type_input(type)
@@ -74,20 +76,18 @@ if __name__ == "__main__":
 
                 print("Just finished the web scraping of this page")
                 
-                try:
-                    scraping.driver.switch_to.window(scraping.driver.window_handles[0])
+                scraping.driver.switch_to.window(scraping.driver.window_handles[0])
+                next_button = scraping.check_last_page()
+                if next_button is False:
+                    print("this is the end of the search")
+                    break
+                else:
                     wait = WebDriverWait(scraping.driver, 5)
                     next_page_button = wait.until(EC.element_to_be_clickable(scraping.click_next_page()))
-                    if next_page_button.is_enabled():
-                        next_page_button.click()
-                        print("next page")
-                        time.sleep(5) 
-                    else:
-                        print("No more pages to scrape")
-                        break
-                except:
-                    print("No more pages to scrape")
-                    break
+                    next_page_button.click()
+                    print("there is another page")
+                    time.sleep(5)
+
                 
                 print(page)
                 page += 1

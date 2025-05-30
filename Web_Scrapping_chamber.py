@@ -13,7 +13,7 @@ class WebScraping_chamber:
         self.options = uc.ChromeOptions()
         self.options.headless = False
         self.driver = uc.Chrome(options=self.options)
-        self.url = "https://australia.chamberofcommerce.com/search?what=Air+Conditioning&where=Rockhampton"
+        self.url = "https://australia.chamberofcommerce.com/search?what=Electrician&where=Sydney"
         self.driver.execute_cdp_cmd("Network.setBlockedURLs", {"urls": ["*doubleclick.net*", "*ads.google.com*"]})
         self.driver.get(self.url)
 
@@ -109,25 +109,35 @@ class WebScraping_chamber:
         next_page_button = self.driver.find_elements(By.CLASS_NAME, "page-link")[-1]
         return next_page_button
     
+    def check_last_page(self):
+        container = self.driver.find_element(By.CLASS_NAME, "pagination")
+        try:
+            last_page_button = container.find_element(By.XPATH, '//span[@class="next page-link"]')
+            
+            if last_page_button is not None:
+                return False
+            
+            return True
+        except:
+            return True
+    
     
 
 
 if __name__ == "__main__":
     web_scraping_chamber = WebScraping_chamber()
-    web_scraping_chamber.find_type_input("Air Conditioning")
-    web_scraping_chamber.find_location_input("Brisbane")
-    # print(web_scraping_chamber.find_business_card())
-    time.sleep(15)
-    web_scraping_chamber.click_next_page().click()
-    time.sleep(5)
 
+    time.sleep(10)
     while True:
-        try:
-            wait = WebDriverWait(web_scraping_chamber, 5)
-            next_page_button = wait.until(EC.element_to_be_clickable(web_scraping_chamber.click_next_page()))
-            next_page_button.click()
-            time.sleep(5)
-        except: 
-            print("It is the end of the page")
+        next_button = web_scraping_chamber.check_last_page()
+        if next_button is False:
+            print("this is the end of the search")
+            break
+        else:
+            print("there is another page")
+            web_scraping_chamber.click_next_page().click()
+
+        time.sleep(10)
+
     
         
