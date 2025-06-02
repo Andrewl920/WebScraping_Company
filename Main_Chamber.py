@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-major_city = ["Sydney", "Newcastle", "Wollongong", "Melbourne", "Geelong", "Ballarat", "Bendigo", "Brisbane", "Gold Coast", "Sunshine Coast", "Townsville", "Cairns", "Toowoomba", "Mackay", "Rockhampton", "Perth", "Bunbury", "Geraldton", "Adelaide", "Mount Gambier", "Hobart", "Launceston", "Devonport", "Burnie", "Canberra", "Darwin", "Alice Springs"]
+major_city = ["Newcastle", "Wollongong", "Melbourne", "Geelong", "Ballarat", "Bendigo", "Brisbane", "Gold Coast", "Sunshine Coast", "Townsville", "Cairns", "Toowoomba", "Mackay", "Rockhampton", "Perth", "Bunbury", "Geraldton", "Adelaide", "Mount Gambier", "Hobart", "Launceston", "Devonport", "Burnie", "Canberra", "Darwin", "Alice Springs"]
 search_type = ["Air Conditioning", "Electrician"]
 
 if __name__ == "__main__":
@@ -16,8 +16,6 @@ if __name__ == "__main__":
         Company_list = []
 
         for type in search_type:
-            if type == "Air Conditioning":
-                continue
             page = 1
             scraping = Webscraping.WebScraping_chamber()
             scraping.find_type_input(type)
